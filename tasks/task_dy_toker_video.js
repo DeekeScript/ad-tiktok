@@ -1,0 +1,225 @@
+let tCommon = require("app/dy/Common");
+let DyUser = require("app/dy/User");
+let DySearch = require("app/dy/Search");
+let DyVideo = require("app/dy/Video");
+let DyIndex = require("app/dy/Index");
+let DyComment = require("app/dy/Comment");
+let storage = require("common/storage");
+let machine = require("common/machine");
+let baiduWenxin = require("service/baiduWenxin");
+let statistics = require("common/statistics");
+let T = require('app/dy/T.js');
+
+let task = {
+    nicknames: [],
+    contents: [],
+    run(input, sleepSecond) {
+        return this.testTask(input, sleepSecond);
+    },
+
+    getMsg(type, title, age, gender) {
+        gender = ['女', '男', '未知'][gender];
+        if (storage.get('setting_baidu_wenxin_switch', 'bool')) {
+            return { msg: type === 1 ? baiduWenxin.getChat(title, age, gender) : baiduWenxin.getComment(title) };
+        }
+        return machine.getMsg(type) || false;//永远不会结束
+    },
+
+    log() {
+        let d = new Date();
+        let file = d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate();
+        let allFile = "log/log-dy-toker-video-" + file + ".txt";
+        Log.setFile(allFile);
+    },
+
+    includesKw(str, kw) {
+        for (let i in kw) {
+            if (str.includes(kw[i])) {
+                return true;
+            }
+        }
+        return false;
+    },
+
+    testTask(input, sleepSecond) {
+        //首先进入页面
+        let commentKw = tCommon.splitKeyword(input);
+        Log.log('评论关键词：', commentKw);
+        let title = storage.get('task_dy_toker_live_video_title');
+        DyIndex.intoSearchPage();
+        tCommon.sleep(1500);
+        DySearch.intoSearchList(title, 0);
+        DySearch.intoSearchVideo();
+
+        let rateCount = storage.get('task_dy_toker_live_video_private_rate', 'int') + storage.get('task_dy_toker_live_video_focus_rate', 'int') + storage.get('task_dy_toker_live_video_zan_comment_rate', 'int');
+        let zanCommentRate = 0;
+        let focuRate = 0;
+        let privateRate = 0;
+        if (rateCount > 0) {
+            zanCommentRate = storage.get('task_dy_toker_live_video_zan_comment_rate', 'int') / rateCount;
+            focuRate = storage.get('task_dy_toker_live_video_focus_rate', 'int') / rateCount;
+            privateRate = storage.get('task_dy_toker_live_video_private_rate', 'int') / rateCount;
+        }
+
+        Log.log('总的点赞：', rateCount, zanCommentRate, focuRate);
+        while (true) {
+            tCommon.sleep(4000 + Math.random() * 2000);
+            //看看是不是直播
+            if (DyVideo.isLiving()) {
+                Log.log('直播，下一个');
+                DyVideo.next();
+                continue;
+            }
+
+            let title = DyVideo.getContent();
+            let commentCount = DyVideo.getCommentCount();
+            statistics.viewVideo();
+            if (commentCount === 0 || this.contents.includes(title)) {
+                Log.log('下一个视频');
+                DyVideo.next();
+                continue;
+            }
+
+            statistics.viewTargetVideo();
+            DyVideo.openComment(commentCount);
+            tCommon.sleep(2000 + 1000 * Math.random());
+
+            let firstComment = true;
+            while (true) {
+                let comments = DyComment.getList();
+                if (comments.length == 0) {
+                    DyComment.closeCommentWindow();
+                    tCommon.sleep(1000);
+                    Log.log('没有评论内容');
+                    break;
+                }
+
+                for (let k in comments) {
+                    if (firstComment && Math.random() * 100 <= storage.get('task_dy_toker_live_video_comment_first_comment_rate', 'int')) {
+                        DyComment.backMsg(comments[k], this.getMsg(0, comments[k].content).msg);
+                        Log.log('首评');
+                        tCommon.sleep(1000);
+                        comments = DyComment.getList();
+                        firstComment = false;
+                        continue;
+                    }
+                    firstComment = false;
+                    Log.log('comments[k]', comments[k]);
+                    if (!comments[k]) {
+                        continue;
+                    }
+
+                    if (!comments[k]['content'] || !this.includesKw(comments[k]['content'], commentKw) || this.nicknames.includes(comments[k].nickname)) {
+                        Log.log('数据：', comments[k]['content'], commentKw, this.nicknames.includes(comments[k].nickname));
+                        continue;
+                    }
+
+                    if (machine.get('task_dy_toker_video_' + comments[k].nickname, 'bool')) {
+                        Log.log('重复');
+                        continue;
+                    }
+
+                    Log.log('找到了关键词', comments[k]['content']);
+                    let opRate = Math.random();
+                    if (opRate <= zanCommentRate) {
+                        try {
+                            Log.log('点赞');
+                            if (!DyComment.isZan()) {
+                                DyComment.clickZan(comments[k]);
+                                tCommon.sleep(1000 + 1000 * Math.random());
+                            }
+                        } catch (e) {
+                            Log.log('异常处理：', e);
+                            continue;
+                        }
+                    } else {
+                        DyComment.intoUserPage(comments[k]);
+                        if (DyUser.isPrivate()) {
+                            tCommon.back();
+                        } else {
+                            if (opRate <= zanCommentRate + privateRate) {
+                                DyUser.privateMsg(this.getMsg(1).msg);
+                            } else {
+                                DyUser.focus();
+                                Log.log('关注');
+                            }
+
+                            tCommon.sleep(1000 + 1000 * Math.random());
+                            tCommon.back();
+                        }
+                    }
+
+                    this.nicknames.push(comments[k].nickname);
+                    machine.set('task_dy_toker_video_' + comments[k].nickname, true);
+                    tCommon.sleep(sleepSecond * 1000);
+                }
+
+                Log.log('下一页评论');
+                if (!tCommon.swipeCommentListOp()) {
+                    tCommon.back();
+                    tCommon.sleep(1000);
+                    Log.log('评论扫描完了');
+                    break;
+                }
+                tCommon.sleep(1500 + 500 * Math.random());
+            }
+            //判断是不是在视频页，不是则返回
+            let retryCount = 3;
+            while (retryCount-- > 0) {
+                if (!UiSelector().text(T('搜索')).findOne()) {
+                    Log.log('找不到视频的搜索，返回');
+                    tCommon.back();
+                    tCommon.sleep(1500 + 500 * Math.random());
+                    continue;
+                }
+                break;
+            }
+            Log.log('下一个视频');
+            this.contents.push(title);
+            DyVideo.next();
+        }
+    },
+}
+
+if (!machine.get('task_dy_toker_live_video_title')) {
+    FloatDialogs.show('请输入视频搜索关键词');
+    System.exit();
+    tCommon.sleep(3000);
+}
+
+
+let input = machine.get('task_dy_toker_live_video_comment_keyword');
+Log.log("input内容：" + machine.get('task_dy_toker_live_video_comment_keyword', 'string'));
+if (!input) {
+    FloatDialogs.show('请输入评论关键词');
+    System.exit();
+    tCommon.sleep(3000);
+}
+
+//开启线程  自动关闭弹窗
+Engines.executeScript("unit/dialogClose.js");
+System.setAccessibilityMode('fast');
+
+while (true) {
+    task.log();
+    try {
+        tCommon.openApp();
+        let r = task.run(input, storage.get('task_dy_toker_live_video_second', 'int'));
+        if (r === 'exit') {
+            if (thr) {
+                tCommon.sleep(3000);
+                FloatDialogs.show('找不到用户，停止执行');
+            }
+            break;
+        }
+
+        if (r) {
+            throw new Error('一个任务完成，重启，进入新的账号');
+        }
+
+        tCommon.sleep(3000);
+    } catch (e) {
+        Log.log(e);
+        tCommon.closeAlert(1);
+    }
+}

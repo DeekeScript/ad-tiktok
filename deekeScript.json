@@ -1,0 +1,1602 @@
+{
+  "name": "TikGrow",
+  "icon": "logo/dke.png",
+  "head": "images/robot.png",
+  "host": "https://home.deeke.top",
+  "switchSetting": {
+    "alipay": true
+  },
+  "bottomMenus": [
+    {
+      "title": "{NAME}",
+      "icon": "images/home.png",
+      "banner": "images/home-top.png",
+      "type": "home"
+    },
+    {
+      "title": "话术库",
+      "icon": "images/speech.png",
+      "type": "speech"
+    },
+    {
+      "title": "设置",
+      "icon": "images/setting.png",
+      "type": "setting"
+    }
+  ],
+  "settingLists": [
+    {
+      "title": "联系客服",
+      "icon": "images/kefu.png",
+      "type": "customerService",
+      "description": "客服微信：DeekeScript",
+      "hidden": false
+    },
+    {
+      "title": "功能说明",
+      "icon": "images/manual.png",
+      "type": "notice",
+      "file": "task.html"
+    },
+    {
+      "title": "智能话术",
+      "icon": "images/robot-chat.png",
+      "type": "settingService",
+      "settingPage": {
+        "params": [
+          {
+            "type": "switch",
+            "label": "开启扣子智能AI话术",
+            "value": false,
+            "name": "setting_baidu_wenxin_switch"
+          },
+          {
+            "type": "textArea",
+            "label": "角色描述",
+            "name": "setting_baidu_wenxin_role_text",
+            "hidden": false,
+            "value": "你是一个评论大师，可以对用户的标题进行犀利的评论，同时能赢得用户的好感度"
+          },
+          {
+            "type": "text",
+            "label": "access_token",
+            "name": "setting_baidu_wenxin_secret",
+            "value": "如：brIq133KaAPNEkn109avxl7MXUHHW0kg"
+          },
+          {
+            "type": "text",
+            "label": "bot_id",
+            "name": "setting_baidu_wenxin_bot",
+            "value": ""
+          },
+          {
+            "type": "numberRange",
+            "label": "超级霸屏(%)",
+            "name": "setting_comment_with_photo",
+            "value": 0,
+            "min": 0,
+            "max": 100,
+            "hidden": false
+          },
+          {
+            "type": "switch",
+            "label": "私信不使用AI话术",
+            "value": true,
+            "name": "setting_baidu_wenxin_private_switch"
+          },
+          {
+            "type": "numberRange",
+            "label": "延迟百分比（网络延迟解决）",
+            "value": 0,
+            "min": 0,
+            "max": 300,
+            "step": 10,
+            "name": "setting_slow"
+          },
+          {
+            "type": "notice",
+            "title": "* 开启后，将使用扣子平台智能体，让拓客更简单~ \n* 注意：相关设置可进入扣子平台获取",
+            "textColor": "#AA0000",
+            "textSize": 16
+          }
+        ]
+      },
+      "hidden": false
+    },
+    {
+      "title": "远程控制",
+      "icon": "images/group_run.png",
+      "type": "settingService",
+      "settingPage": {
+        "params": [
+          {
+            "type": "switch",
+            "label": "允许远程控制",
+            "value": false,
+            "name": "setting_group_run"
+          },
+          {
+            "type": "numberRange",
+            "label": "Http请求间隔(秒)",
+            "name": "setting_group_run_second",
+            "value": 10,
+            "min": 1,
+            "max": 300,
+            "hidden": false
+          },
+          {
+            "type": "notice",
+            "title": "* 开启开关后，需要打开无障碍开关、悬浮窗开关、图色权限；并且保持软件在主界面 \n\n* 进入当前页，打开开关，返回后，即开启远程控制\n\n* 进入当前页，关闭开关，返回后，即可关闭远程控制",
+            "textColor": "#AA0000",
+            "textSize": 16
+          }
+        ]
+      },
+      "hidden": false
+    },
+    {
+      "title": "数据统计",
+      "icon": "images/statistics.png",
+      "type": "statistics",
+      "jsFile": "statistics/statistics.js"
+    },
+    {
+      "title": "上传日志",
+      "icon": "images/upload.png",
+      "type": "uploadLog",
+      "url": "/dke/uploadLog"
+    },
+    {
+      "title": "系统升级",
+      "icon": "images/system-update.png",
+      "type": "updateApp",
+      "url": "/dke/updateApp"
+    },
+    {
+      "title": "清理数据",
+      "icon": "images/clear.png",
+      "description": "确定清理嘛？",
+      "type": "clear"
+    }
+  ],
+  "apis": [
+    {
+      "type": "bind",
+      "url": "/dke/login"
+    },
+    {
+      "type": "checkBind",
+      "url": "/dke/checkBind"
+    },
+    {
+      "type": "aiSpeechToken",
+      "url": "/dke/getBaiduToken"
+    },
+    {
+      "type": "config",
+      "url": "/dkee/config"
+    },
+    {
+      "type": "getToken",
+      "url": "/alipay/getToken"
+    },
+    {
+      "type": "createOrder",
+      "url": "/alipay/createOrder"
+    }
+  ],
+  "groups": [
+    {
+      "title": "TIK·万能引流",
+      "methods": [
+        {
+          "title": "推荐营销",
+          "icon": "images/automation.png",
+          "jsFile": "tasks/task_dy_toker.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "radio",
+                "label": "视频类型",
+                "name": "toker_view_video_type",
+                "value": "0",
+                "options": [
+                  {
+                    "label": "STEM",
+                    "value": "1"
+                  },
+                  {
+                    "label": "推荐",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "type": "numberRange",
+                "label": "延长观看时长（秒）",
+                "name": "toker_view_video_second",
+                "max": 60,
+                "min": 0,
+                "value": 12,
+                "step": 1
+              },
+              {
+                "type": "textArea",
+                "label": "关键词筛选（多个使用逗号隔开）",
+                "name": "toker_view_video_keywords",
+                "value": "",
+                "notice": "* 关键词不填则操作所有"
+              },
+              {
+                "type": "numberRange",
+                "label": "点赞频率（%）",
+                "name": "toker_zan_rate",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "value": 100
+              },
+              {
+                "type": "numberRange",
+                "label": "评论频率（%）",
+                "name": "toker_comment_rate",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "value": 100
+              },
+              {
+                "type": "numberRange",
+                "label": "关注频率（%）",
+                "name": "toker_focus_rate",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "value": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "私信频率（%）",
+                "name": "toker_private_msg_rate",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "value": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "评论区五连赞频率（%）",
+                "name": "toker_comment_area_zan_rate",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "value": 100
+              },
+              {
+                "type": "checkboxGroup",
+                "label": "运行时间",
+                "name": "toker_run_hour",
+                "columnCount": 5,
+                "children": [
+                  "0时",
+                  "1时",
+                  "2时",
+                  "3时",
+                  "4时",
+                  "5时",
+                  "6时",
+                  "7时",
+                  "8时",
+                  "9时",
+                  "10时",
+                  "11时",
+                  "12时",
+                  "13时",
+                  "14时",
+                  "15时",
+                  "16时",
+                  "17时",
+                  "18时",
+                  "19时",
+                  "20时",
+                  "21时",
+                  "22时",
+                  "23时"
+                ],
+                "values": [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21",
+                  "22",
+                  "23"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "title": "本地营销",
+          "icon": "images/local.png",
+          "jsFile": "tasks/task_dy_toker_city.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "radio",
+                "label": "视频类型",
+                "name": "toker_city_type",
+                "value": "0",
+                "options": [
+                  {
+                    "label": "探索",
+                    "value": "1"
+                  },
+                  {
+                    "label": "本地",
+                    "value": "0"
+                  }
+                ]
+              },
+              {
+                "type": "numberRange",
+                "label": "延长观看时长（秒）",
+                "name": "toker_city_view_video_second",
+                "max": 30,
+                "min": 0,
+                "value": 12,
+                "step": 1
+              },
+              {
+                "type": "textArea",
+                "label": "关键词筛选（多个使用逗号隔开）",
+                "name": "toker_city_view_video_keywords",
+                "value": "",
+                "notice": "* 关键词不填则操作所有"
+              },
+              {
+                "type": "numberRange",
+                "label": "点赞频率（%）",
+                "name": "toker_city_zan_rate",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "value": 100
+              },
+              {
+                "type": "numberRange",
+                "label": "评论频率（%）",
+                "name": "toker_city_comment_rate",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "value": 100
+              },
+              {
+                "type": "numberRange",
+                "label": "关注频率（%）",
+                "name": "toker_city_focus_rate",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "value": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "私信频率（%）",
+                "name": "toker_city_private_msg_rate",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "value": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "评论区五连赞频率（%）",
+                "name": "toker_city_comment_area_zan_rate",
+                "max": 100,
+                "min": 0,
+                "step": 1,
+                "value": 100
+              },
+              {
+                "type": "checkboxGroup",
+                "label": "运行时间",
+                "name": "toker_city_run_hour",
+                "columnCount": 5,
+                "children": [
+                  "0时",
+                  "1时",
+                  "2时",
+                  "3时",
+                  "4时",
+                  "5时",
+                  "6时",
+                  "7时",
+                  "8时",
+                  "9时",
+                  "10时",
+                  "11时",
+                  "12时",
+                  "13时",
+                  "14时",
+                  "15时",
+                  "16时",
+                  "17时",
+                  "18时",
+                  "19时",
+                  "20时",
+                  "21时",
+                  "22时",
+                  "23时"
+                ],
+                "values": [
+                  "0",
+                  "1",
+                  "2",
+                  "3",
+                  "4",
+                  "5",
+                  "6",
+                  "7",
+                  "8",
+                  "9",
+                  "10",
+                  "11",
+                  "12",
+                  "13",
+                  "14",
+                  "15",
+                  "16",
+                  "17",
+                  "18",
+                  "19",
+                  "20",
+                  "21",
+                  "22",
+                  "23"
+                ]
+              }
+            ]
+          }
+        },
+        {
+          "title": "工具箱",
+          "hidden": false,
+          "icon": "images/tool.png",
+          "jsFile": "tasks/tool.js",
+          "activity": {
+            "notice": "暂无功能~",
+            "title": "工具箱",
+            "minVersion": 290700,
+            "methods": [
+              {
+                "title": "一键取赞",
+                "hidden": false,
+                "icon": "images/cancel.png",
+                "jsFile": "tasks/task_dy_cancel_zan.js",
+                "settingPage": {
+                  "params": [
+                    {
+                      "type": "notice",
+                      "title": "帮助你快速取消视频点赞~"
+                    }
+                  ]
+                }
+              },
+              {
+                "title": "一键取关",
+                "hidden": false,
+                "icon": "images/unfollow.png",
+                "jsFile": "tasks/task_dy_cancel_focus.js",
+                "settingPage": {
+                  "params": [
+                    {
+                      "type": "notice",
+                      "title": "帮助你快速取消单向关注（你关注他，他没有关注你）的用户~"
+                    },
+                    {
+                      "type": "switch",
+                      "label": "互相关注取关",
+                      "name": "task_dy_cancel_focus_mutual_switch"
+                    }
+                  ]
+                }
+              },
+              {
+                "title": "粉丝回访",
+                "hidden": false,
+                "icon": "images/follow-up.png",
+                "jsFile": "tasks/task_dy_fans_back_view.js",
+                "settingPage": {
+                  "params": [
+                    {
+                      "type": "notice",
+                      "title": "粉丝回访，能增加粉丝粘性~"
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "TIK·同行截流",
+      "methods": [
+        {
+          "title": "粉丝截流",
+          "icon": "images/audience.png",
+          "jsFile": "tasks/task_dy_toker_fans.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "numberRange",
+                "label": "私信频率（%）",
+                "name": "fansSetting_privateRate",
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "关注频率（%）",
+                "name": "fansSetting_focusRate",
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "点赞频率（%）",
+                "name": "fansSetting_zanRate",
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "评论频率（%）",
+                "name": "fansSetting_commentRate",
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "digit",
+                "label": "粉丝数（不低于）",
+                "name": "fansSetting_fansMinCount",
+                "value": 0
+              },
+              {
+                "type": "digit",
+                "label": "粉丝数（不超过）",
+                "name": "fansSetting_fansMaxCount",
+                "value": 10000
+              },
+              {
+                "type": "digit",
+                "label": "作品数（不低于）",
+                "name": "fansSetting_worksMinCount",
+                "value": 0
+              },
+              {
+                "type": "digit",
+                "label": "作品数（不超过）",
+                "name": "fansSetting_worksMaxCount",
+                "value": 10000
+              },
+              {
+                "type": "number",
+                "label": "操作次数",
+                "name": "fansSetting_opCount",
+                "value": 100
+              },
+              {
+                "type": "text",
+                "label": "抖音账号",
+                "name": "fansSetting_account",
+                "value": "",
+                "notice": "*如果输入UID（非抖音号），需要在UID前面加上“#”"
+              }
+            ]
+          }
+        },
+        {
+          "title": "关注截流",
+          "icon": "images/target-audience.png",
+          "jsFile": "tasks/task_dy_toker_focus.js",
+          "hidden": false,
+          "settingPage": {
+            "params": [
+              {
+                "type": "numberRange",
+                "label": "私信频率（%）",
+                "name": "focusSetting_privateRate",
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "关注频率（%）",
+                "name": "focusSetting_focusRate",
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "点赞频率（%）",
+                "name": "focusSetting_zanRate",
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "评论频率（%）",
+                "name": "focusSetting_commentRate",
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "digit",
+                "label": "粉丝数（不低于）",
+                "name": "focusSetting_fansMinCount",
+                "value": 0
+              },
+              {
+                "type": "digit",
+                "label": "粉丝数（不超过）",
+                "name": "focusSetting_fansMaxCount",
+                "value": 10000
+              },
+              {
+                "type": "digit",
+                "label": "作品数（不低于）",
+                "name": "focusSetting_worksMinCount",
+                "value": 0
+              },
+              {
+                "type": "digit",
+                "label": "作品数（不超过）",
+                "name": "focusSetting_worksMaxCount",
+                "value": 10000
+              },
+              {
+                "type": "number",
+                "label": "操作次数",
+                "name": "focusSetting_opCount",
+                "value": 100
+              },
+              {
+                "type": "text",
+                "label": "抖音账号",
+                "name": "focusSetting_account",
+                "value": "",
+                "notice": "*如果输入UID（非抖音号），需要在UID前面加上“#”"
+              }
+            ]
+          }
+        },
+        {
+          "title": "评论区截流",
+          "hidden": false,
+          "icon": "images/user-comment.png",
+          "jsFile": "tasks/task_dy_toker_comment.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "textArea",
+                "label": "输入账号（多账号使用逗号隔开）",
+                "name": "task_dy_toker_comment_account",
+                "value": "",
+                "notice": "*可以输入UID，需要在输入框前面加上“#”"
+              },
+              {
+                "type": "textArea",
+                "label": "评论关键词（多关键词使用逗号隔开）",
+                "name": "task_dy_toker_comment_kw",
+                "value": ""
+              }
+            ]
+          }
+        },
+        {
+          "title": "直播间截流",
+          "hidden": false,
+          "icon": "images/live-streaming_2.png",
+          "jsFile": "tasks/task_dy_toker_live.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "textArea",
+                "label": "输入抖音账号（正在直播）",
+                "value": "",
+                "name": "task_dy_toker_live_account",
+                "notice": "*可以输入UID（非抖音号），需要在UID前面加上“#”"
+              },
+              {
+                "type": "numberRange",
+                "label": "前多少名不操作",
+                "name": "task_dy_toker_live_index",
+                "value": 5,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "点赞/评论视频频率（%）",
+                "name": "task_dy_toker_live_comment_user_video_rate",
+                "value": 0,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "switch",
+                "label": "直播间关注用户",
+                "name": "task_dy_toker_live_focus_switch"
+              },
+              {
+                "type": "switch",
+                "label": "直播间私信用户",
+                "name": "task_dy_toker_live_private_switch"
+              },
+              {
+                "type": "numberRange",
+                "label": "用户操作间隔（秒）",
+                "name": "task_dy_toker_live_focus_rate",
+                "value": 0,
+                "max": 100,
+                "min": 5,
+                "step": 5
+              }
+            ]
+          }
+        },
+        {
+          "title": "智能询盘",
+          "columns": 1,
+          "hidden": false,
+          "icon": "images/sale-funnel.png",
+          "jsFile": "tasks/task_dy_search_inquiry.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "textArea",
+                "label": "询盘关键词",
+                "value": "",
+                "name": "task_dy_search_inquiry"
+              },
+              {
+                "type": "textArea",
+                "label": "触发关键词（多个使用逗号隔开）",
+                "name": "task_dy_search_inquiry_kws",
+                "value": ""
+              },
+              {
+                "type": "numberRange",
+                "label": "刷视频数量",
+                "name": "task_dy_search_inquiry_count",
+                "value": 10,
+                "max": 1000,
+                "min": 1,
+                "step": 1
+              },
+              {
+                "type": "notice",
+                "title": "* 搜索视频，对视频标题符合关键词的评论区用户（评论内容匹配到”触发关键词“）进行操作"
+              }
+            ]
+          }
+        },
+        {
+          "title": "UID私信",
+          "icon": "images/encrypted-chat.png",
+          "jsFile": "tasks/task_dy_toker_uid.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "text",
+                "label": "UID（每行一个）",
+                "name": "task_dy_toker_uid_account",
+                "value": "",
+                "lines": 5
+              },
+              {
+                "type": "numberRange",
+                "label": "操作平均间隔（秒）",
+                "name": "task_dy_toker_uid_interval",
+                "value": 5,
+                "max": 100,
+                "min": 1,
+                "step": 1
+              },
+              {
+                "type": "checkboxGroup",
+                "label": "功能",
+                "name": "task_dy_toker_uid_op",
+                "columnCount": 5,
+                "children": [
+                  "关注",
+                  "私信"
+                ],
+                "values": [
+                  "0",
+                  "1"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "TIK·养号涨粉",
+      "methods": [
+        {
+          "title": "垂直养号",
+          "hidden": false,
+          "icon": "images/scan-folder.png",
+          "jsFile": "tasks/task_dy_search_vertical.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "textArea",
+                "label": "关键词",
+                "value": "",
+                "name": "task_dy_search_vertical"
+              },
+              {
+                "type": "numberRange",
+                "label": "点赞频率（%）",
+                "name": "task_dy_search_zan_rate",
+                "value": 10,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "评论频率（%）",
+                "name": "task_dy_search_comment_rate",
+                "value": 10,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "关注频率（%）",
+                "name": "task_dy_search_focus_rate",
+                "value": 10,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "刷视频数量",
+                "name": "task_dy_search_count",
+                "value": 10,
+                "max": 5000,
+                "min": 10,
+                "step": 10
+              }
+            ]
+          }
+        },
+        {
+          "title": "快速涨粉",
+          "icon": "images/people.png",
+          "jsFile": "tasks/task_dy_fans_inc_main.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "text",
+                "label": "输入账号（多账号每行输入一个）",
+                "name": "task_dy_fans_inc_accounts",
+                "value": "",
+                "lines": 5,
+                "hidden": false,
+                "notice": "*可以输入UID，需要在输入框前面加上“#”"
+              },
+              {
+                "type": "notice",
+                "title": "视频赞概率+评论赞概率+收藏概率=100%",
+                "hidden": true
+              },
+              {
+                "type": "numberRange",
+                "label": "视频赞频率（%）",
+                "name": "task_dy_fans_inc_video_zan_rate",
+                "value": 5,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "评论频率（%）",
+                "name": "task_dy_fans_inc_comment_rate",
+                "value": 5,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "收藏频率（%）",
+                "name": "task_dy_fans_inc_collection_rate",
+                "value": 5,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "主页停留时长（秒）",
+                "name": "task_dy_fans_inc_user_page_wait",
+                "value": 5,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "视频停留时长（秒）",
+                "name": "task_dy_fans_inc_user_video_wait",
+                "value": 5,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              }
+            ]
+          }
+        },
+        {
+          "title": "喜欢截流",
+          "hidden": false,
+          "icon": "images/like.png",
+          "jsFile": "tasks/task_dy_consum_user.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "textArea",
+                "label": "对方抖音账号",
+                "value": "",
+                "name": "task_dy_consum_account",
+                "notice": "* 如果对方是你关注的账号，可以使用“+抖音号”的方式"
+              },
+              {
+                "type": "numberRange",
+                "label": "操作视频数",
+                "name": "task_dy_consum_account_videoCount",
+                "value": 10,
+                "max": 5000,
+                "min": 10,
+                "step": 10
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "TIK·精准拓客",
+      "methods": [
+        {
+          "title": "轻松拓客",
+          "icon": "images/customer-relationship_2.png",
+          "jsFile": "tasks/task_dy_qingsong_tuoke.js",
+          "runType": "floatSwitch",
+          "autoOpen": true,
+          "packageName": "com.ss.android.ugc.aweme",
+          "settingPage": {
+            "params": [
+              {
+                "type": "numberRange",
+                "label": "运行次数",
+                "name": "task_dy_qingsong_tuoke_run_count",
+                "value": 10,
+                "max": 1000,
+                "min": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "操作平均间隔（秒）",
+                "name": "task_dy_qingsong_tuoke_interval",
+                "value": 5,
+                "max": 100,
+                "min": 1,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "主页平均停留时间（秒）",
+                "name": "task_dy_qingsong_tuoke_home_wait",
+                "value": 5,
+                "max": 100,
+                "min": 1,
+                "hidden": true,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "作品平均停留时间（秒）",
+                "name": "task_dy_qingsong_tuoke_work_wait",
+                "value": 5,
+                "max": 100,
+                "min": 2,
+                "hidden": true,
+                "step": 1
+              },
+              {
+                "type": "number",
+                "label": "粉丝数量不少于",
+                "name": "task_dy_qingsong_tuoke_min_fans",
+                "value": 0,
+                "hidden": true
+              },
+              {
+                "type": "number",
+                "label": "粉丝数量不大于",
+                "name": "task_dy_qingsong_tuoke_max_fans",
+                "value": 10000,
+                "hidden": true
+              },
+              {
+                "type": "number",
+                "label": "作品数大于",
+                "name": "task_dy_qingsong_tuoke_min_work",
+                "value": 1,
+                "hidden": true
+              },
+              {
+                "type": "checkboxGroup",
+                "label": "功能",
+                "name": "task_dy_qingsong_tuoke_op",
+                "columnCount": 5,
+                "children": [
+                  "关注",
+                  "私信",
+                  "首作品点赞"
+                ],
+                "values": [
+                  "0",
+                  "2"
+                ],
+                "hidden": true
+              },
+              {
+                "type": "checkboxGroup",
+                "label": "私信模式",
+                "name": "task_dy_qingsong_tuoke_private_type",
+                "children": [
+                  "对普通用户私信",
+                  "对蓝V用户私信"
+                ],
+                "values": [],
+                "hidden": true
+              },
+              {
+                "type": "notice",
+                "title": "功能说明：在其他账号的 “粉丝” 或者 “关注” 界面运行，系统会对用户首作品点赞。"
+              }
+            ]
+          }
+        },
+        {
+          "title": "赞回访",
+          "icon": "images/facebook-like-emoji.png",
+          "jsFile": "tasks/task_dy_zan_back.js",
+          "runType": "floatSwitch",
+          "autoOpen": true,
+          "packageName": "com.ss.android.ugc.aweme",
+          "settingPage": {
+            "params": [
+              {
+                "type": "numberRange",
+                "label": "运行次数",
+                "name": "task_dy_zan_back_run_count",
+                "value": 10,
+                "max": 300,
+                "min": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "操作平均间隔（秒）",
+                "name": "task_dy_zan_back_interval",
+                "value": 5,
+                "max": 100,
+                "min": 1,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "主页平均停留时间（秒）",
+                "name": "task_dy_zan_back_home_wait",
+                "value": 5,
+                "max": 100,
+                "min": 1,
+                "step": 1,
+                "hidden": true
+              },
+              {
+                "type": "numberRange",
+                "label": "作品平均停留时间（秒）",
+                "name": "task_dy_zan_back_work_wait",
+                "value": 5,
+                "max": 100,
+                "min": 2,
+                "step": 1,
+                "hidden": true
+              },
+              {
+                "type": "number",
+                "label": "粉丝数量不少于",
+                "name": "task_dy_zan_back_min_fans",
+                "value": 0,
+                "hidden": true
+              },
+              {
+                "type": "number",
+                "label": "粉丝数量不大于",
+                "name": "task_dy_zan_back_max_fans",
+                "value": 10000,
+                "hidden": true
+              },
+              {
+                "type": "number",
+                "label": "作品数大于",
+                "name": "task_dy_zan_back_min_work",
+                "value": 1,
+                "hidden": true
+              },
+              {
+                "type": "checkboxGroup",
+                "label": "功能",
+                "name": "task_dy_zan_back_op",
+                "columnCount": 5,
+                "children": [
+                  "关注",
+                  "私信",
+                  "首作品点赞"
+                ],
+                "values": [
+                  "0",
+                  "2"
+                ]
+              },
+              {
+                "type": "notice",
+                "title": "功能说明：在我的 “作品” -> “评论” 页的 “点赞” 列表界面运行，对列表用户的作品回赞。"
+              }
+            ]
+          }
+        },
+        {
+          "title": "好友转化",
+          "icon": "images/customer-segmentation.png",
+          "jsFile": "tasks/task_dy_friend_change.js",
+          "runType": "floatSwitch",
+          "autoOpen": true,
+          "packageName": "com.ss.android.ugc.aweme",
+          "settingPage": {
+            "params": [
+              {
+                "type": "numberRange",
+                "label": "运行次数",
+                "name": "task_dy_friend_change_run_count",
+                "value": 10,
+                "step": 5,
+                "max": 1000,
+                "min": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "操作平均间隔（秒）",
+                "name": "task_dy_friend_change_interval",
+                "value": 5,
+                "max": 100,
+                "min": 1,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "主页平均停留时间（秒）",
+                "name": "task_dy_friend_change_home_wait",
+                "value": 5,
+                "max": 100,
+                "min": 1,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "作品平均停留时间（秒）",
+                "name": "task_dy_friend_change_work_wait",
+                "value": 5,
+                "max": 100,
+                "min": 2,
+                "step": 1
+              },
+              {
+                "type": "number",
+                "label": "粉丝数量不少于",
+                "name": "task_dy_friend_change_min_fans",
+                "value": 0
+              },
+              {
+                "type": "number",
+                "label": "粉丝数量不大于",
+                "name": "task_dy_friend_change_max_fans",
+                "value": 10000
+              },
+              {
+                "type": "number",
+                "label": "作品数大于",
+                "name": "task_dy_friend_change_min_work",
+                "value": 1
+              },
+              {
+                "type": "checkboxGroup",
+                "label": "功能",
+                "name": "task_dy_friend_change_op",
+                "columnCount": 5,
+                "children": [
+                  "关注",
+                  "私信",
+                  "首作品点赞"
+                ],
+                "values": [
+                  "0",
+                  "2"
+                ]
+              },
+              {
+                "type": "checkboxGroup",
+                "label": "私信模式",
+                "name": "task_dy_friend_change_private_type",
+                "children": [
+                  "对普通用户私信",
+                  "对认证用户私信"
+                ],
+                "values": []
+              },
+              {
+                "type": "notice",
+                "title": "功能说明：在其他账号的 “粉丝” 或者 “关注” 界面运行，系统会根据相关筛选条件执行相应的任务。（适用于寻找客户，对同行的精准粉丝进行推广引流）"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "title": "TIK·其他功能",
+      "methods": [
+        {
+          "title": "精准行业",
+          "hidden": false,
+          "icon": "images/target-customer.png",
+          "jsFile": "tasks/task_dy_search_user.js",
+          "columns": 1,
+          "settingPage": {
+            "params": [
+              {
+                "type": "numberRange",
+                "label": "私信频率（%）",
+                "name": "searchUserSetting_privateRate",
+                "max": 100,
+                "min": 0,
+                "value": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "关注频率（%）",
+                "name": "searchUserSetting_focusRate",
+                "max": 100,
+                "min": 0,
+                "value": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "点赞频率（%）",
+                "name": "searchUserSetting_zanRate",
+                "max": 100,
+                "value": 40,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "评论频率（%）",
+                "name": "searchUserSetting_commentRate",
+                "max": 100,
+                "value": 25,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "digit",
+                "label": "粉丝数（不低于）",
+                "name": "searchUserSetting_fansMinCount",
+                "value": 0
+              },
+              {
+                "type": "digit",
+                "label": "粉丝数（不超过）",
+                "name": "searchUserSetting_fansMaxCount",
+                "value": 50000
+              },
+              {
+                "type": "digit",
+                "label": "作品数（不低于）",
+                "name": "searchUserSetting_worksMinCount",
+                "value": 0
+              },
+              {
+                "type": "digit",
+                "label": "作品数（不超过）",
+                "name": "searchUserSetting_worksMaxCount",
+                "value": 10000
+              },
+              {
+                "type": "number",
+                "label": "操作次数",
+                "name": "searchUserSetting_opCount",
+                "value": 2000
+              },
+              {
+                "type": "text",
+                "label": "行业关键词",
+                "name": "searchUserSetting_keyword",
+                "value": ""
+              }
+            ]
+          }
+        },
+        {
+          "title": "AI回复",
+          "hidden": false,
+          "icon": "images/auto-reply_2.png",
+          "jsFile": "tasks/task_dy_ai_back.js",
+          "columns": 2,
+          "settingPage": {
+            "params": [
+              {
+                "type": "radio",
+                "name": "ai_back_comment_run_other_fun",
+                "label": "同时启动功能",
+                "value": "0",
+                "options": [
+                  {
+                    "label": "--请选择--",
+                    "value": 0
+                  },
+                  {
+                    "label": "推荐营销",
+                    "value": 1
+                  },
+                  {
+                    "label": "同城营销",
+                    "value": 2
+                  },
+                  {
+                    "label": "垂直养号",
+                    "value": 3
+                  }
+                ]
+              },
+              {
+                "type": "switch",
+                "label": "评论回复",
+                "name": "ai_back_comment_switch",
+                "value": true
+              },
+              {
+                "type": "switch",
+                "label": "私信回复",
+                "name": "ai_back_friend_private_switch",
+                "value": true,
+                "notice": "* 不包含陌生人私信"
+              },
+              {
+                "type": "switch",
+                "label": "陌生人私信回复",
+                "name": "ai_back_private_switch",
+                "value": true
+              },
+              {
+                "type": "number",
+                "label": "操作间隔（分钟）",
+                "name": "ai_back_minitue",
+                "value": 5
+              },
+              {
+                "type": "notice",
+                "title": "* 默认为5分钟，表示每间隔5分钟处理一次回复\n* 注意，消息量越大，操作间隔也应该设置的越小 \n * 如果开启了“其他功能”，则表示其他功能运行时间"
+              }
+            ]
+          }
+        },
+        {
+          "title": "直播间弹幕",
+          "hidden": false,
+          "icon": "images/live-chat.png",
+          "jsFile": "tasks/task_dy_live_barrage.js",
+          "columns": 1,
+          "settingPage": {
+            "params": [
+              {
+                "type": "textArea",
+                "label": "输入账号（正在直播中）",
+                "name": "task_dy_live_barrage_account",
+                "value": "",
+                "notice": "*可以输入UID，需要在UID前面加上“#”"
+              },
+              {
+                "type": "numberRange",
+                "label": "操作最大间隔时间（秒）",
+                "name": "task_dy_live_barrage_second",
+                "value": 5,
+                "max": 300,
+                "min": 5,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "点赞频率（%）",
+                "name": "task_dy_live_barrage_zan_rate",
+                "value": 5,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "弹幕频率（%）",
+                "name": "task_dy_live_barrage_comment_rate",
+                "value": 5,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "textArea",
+                "label": "弹幕内容（一行为一条弹幕）",
+                "name": "task_dy_live_barrage_comments",
+                "value": "六六六\n厉害了\n😄😄"
+              },
+              {
+                "type": "switch",
+                "label": "弹幕带表情",
+                "name": "task_dy_live_barrage_comment_emoji_switch"
+              }
+            ]
+          }
+        },
+        {
+          "title": "视频截流",
+          "hidden": false,
+          "icon": "images/video_2.png",
+          "jsFile": "tasks/task_dy_toker_comment2.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "textArea",
+                "label": "输入视频链接（每个链接一行）",
+                "name": "task_dy_toker_comment_video",
+                "line": 5,
+                "value": "",
+                "notice": "* 请填写正确的链接\n* 请确保视频有评论内容"
+              },
+              {
+                "type": "textArea",
+                "label": "评论关键词（多关键词使用逗号隔开）",
+                "name": "task_dy_toker_comment_kw",
+                "value": ""
+              }
+            ]
+          }
+        },
+        {
+          "title": "评论截流II",
+          "hidden": false,
+          "columns": 1,
+          "icon": "images/testimonial.png",
+          "jsFile": "tasks/task_dy_toker_video.js",
+          "settingPage": {
+            "params": [
+              {
+                "type": "text",
+                "label": "视频搜索关键词",
+                "value": "",
+                "name": "task_dy_toker_live_video_title"
+              },
+              {
+                "type": "textArea",
+                "label": "评论关键词（多关键词使用逗号隔开）",
+                "value": "",
+                "name": "task_dy_toker_live_video_comment_keyword"
+              },
+              {
+                "type": "numberRange",
+                "label": "评论赞频率",
+                "name": "task_dy_toker_live_video_zan_comment_rate",
+                "value": 0,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "私信频率",
+                "name": "task_dy_toker_live_video_private_rate",
+                "value": 0,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "关注频率",
+                "name": "task_dy_toker_live_video_focus_rate",
+                "value": 0,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "回复作品首评频率（%）",
+                "name": "task_dy_toker_live_video_comment_first_comment_rate",
+                "value": 0,
+                "max": 100,
+                "min": 0,
+                "step": 1
+              },
+              {
+                "type": "numberRange",
+                "label": "操作间隔（秒）",
+                "name": "task_dy_toker_live_video_second",
+                "value": 0,
+                "max": 100,
+                "min": 5,
+                "step": 5
+              },
+              {
+                "type": "notice",
+                "title": "* 私信、关注、评论赞，三者会按照概率执行，并且只执行其中一个"
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}
