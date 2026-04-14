@@ -1,4 +1,4 @@
-# 🚀 TikGrow tiktok黑科技 · 颠覆你的引流获客方式！
+# 🚀 TikGrow TikTok黑科技 · 颠覆你的引流获客方式！
 <img src='https://home.deeke.top/Index/githubStatistic?name=github-ad-tiktok' width=0 height=0 />
 
 <span style="font-size:18px;">
