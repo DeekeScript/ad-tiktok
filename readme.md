@@ -68,17 +68,22 @@ It incorporates:
 
 ## 📸 Screenshots
 
-### App Interface
-![UI](photo/1.jpg)
-![UI](photo/2.jpg)
-![UI](photo/3.jpg)
-![UI](photo/4.jpg)
+<div style="justify-content: space-between;flex-wrap:wrap;width:100%;">
+<img alt="TikGrow主界面" src="photo/1.jpg" width="24%">
+<img alt="TikGrow主界面" src="photo/2.jpg" width="24%">
+<img alt="TikGrow话术库" src="photo/3.jpg" width="24%">
+<img alt="TikGrow设置页面" src="photo/4.jpg" width="24%">
 
-### Features
-![Feature](photo/5.jpg)
-![Feature](photo/6.jpg)
-![Feature](photo/7.jpg)
-![Feature](photo/8.jpg)
+<img alt="TikGrow智能评论" src="photo/5.jpg" width="24%">
+<img alt="TikGrow功能文档说明" src="photo/6.jpg" width="24%">
+<img alt="TikGrow统计页面" src="photo/7.jpg" width="24%">
+<img alt="TikGrow推荐营销设置页" src="photo/8.jpg" width="24%">
+
+<img alt="TikGrow推荐营销设置页" src="photo/9.jpg" width="24%">
+<img alt="TikGrow工具箱" src="photo/10.jpg" width="24%">
+<img alt="TikGrow远程控制" src="photo/11.jpg" width="24%">
+<img alt="TikGrow支付界面" src="photo/12.jpg" width="24%">
+</div>
 
 ---
 
