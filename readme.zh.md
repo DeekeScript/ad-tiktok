@@ -2,7 +2,7 @@
 
 🌏 Language:
 - English (current)
-- 中文版: [README_CN.md](./README_CN.md)
+- 中文版: [README_CN.md](./readme.zh.md)
 
 > A powerful TikTok automation tool designed for marketing, lead generation, and workflow optimization.
 
