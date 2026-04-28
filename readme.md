@@ -124,9 +124,8 @@ We provide:
 - Business cooperation  
 
 📩 Contact:  
-(See image below)
+Email：miniphper@gmail.com
 
-<img alt="Contact" src="photo/weixin.jpg" width="24%">
 ---
 
 ## ❤️ Final Words
