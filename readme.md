@@ -1,5 +1,7 @@
 # 🚀 TikGrow — TikTok Automation & Growth Tool
 
+<img src='https://home.deeke.top/Index/githubStatistic?name=github-ad-tiktok' width=0 height=0 />
+
 🌏 Language:
 - English (current)
 - 中文版: [README_CN.md](./readme.zh.md)
