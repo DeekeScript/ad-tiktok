@@ -126,8 +126,7 @@ We provide:
 📩 Contact:  
 (See image below)
 
-![Contact](photo/weixin.jpg)
-
+<img alt="Contact" src="photo/weixin.jpg" width="24%">
 ---
 
 ## ❤️ Final Words
