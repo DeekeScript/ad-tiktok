@@ -110,9 +110,3 @@
 加入TikGrow，一起开启智能引流新纪元吧！🚀✨  
 
 ---
-
-NiubiStar 新活动上线：
-
-项目入驻 NiubiStar，即刻获取 30 颗冷启动加速 Star。
-
-活动页： https://niubistar.com/free-20-stars
